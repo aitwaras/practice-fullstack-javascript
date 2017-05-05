@@ -1,0 +1,66 @@
+/*import config, {nodeEnv} from './config';
+
+console.log(config, nodeEnv);*/
+
+/*import https from 'https';
+https.get('https://www.lynda.com', res => {
+  console.log('Response status code: ', res.statusCode);
+
+  res.on('data', chunk => {
+        console.log(chunk.toString());
+  });
+});*/
+
+/*import http from 'http';
+
+const server = http.createServer((req, res) => {
+  res.write('Hello HTTP!\n');
+  setTimeout(() => {
+    res.write('I can stream!\n');
+  }, 3000);
+});
+
+
+server.listen(8000);*/
+
+/*import config from './config';
+
+import express from 'express';
+const server = express();
+
+server.get('/', (req, res) => {
+  res.send('Hello Express');
+});
+
+server.get('/about.html', (req, res) => {
+  res.send('The about page');
+});
+
+server.listen(config.port, () => {
+  console.info('Express listening on port ', config.port);
+});*/
+
+//https://www.lynda.com/Express-js-tutorials/Creating-Express-server/533304/557609-4.html
+
+
+
+import config from './config';
+import apiRouter from './api';
+
+import express from 'express';
+const server = express();
+
+server.set('view engine', 'ejs');
+
+server.get('/', (req, res) => {
+  res.render('index', {
+    content: '...'
+  });
+});
+
+server.use('/api', apiRouter);
+server.use(express.static('public'));
+
+server.listen(config.port, () => {
+  console.info('Express listening on port', config.port);
+});
